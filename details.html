@@ -1,0 +1,52 @@
+<!DOCTYPE html> <html lang="pt-BR"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Detalhes do Espaço | Conffra</title> <script src="https://cdn.tailwindcss.com"></script> </head> <body class="bg-gray-50 text-gray-800"> <!-- Navbar --> <header class="bg-white shadow-md fixed w-full top-0 left-0 z-50"> <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center"> <h1 class="text-2xl font-bold text-indigo-600">Conffra</h1> <nav class="space-x-6 text-gray-700"> <a href="index.html" class="hover:text-indigo-600">Início</a> <a href="results.html" class="hover:text-indigo-600">Espaços</a> <a href="announce.html" class="hover:text-indigo-600">Anunciar</a> <a href="login.html" class="hover:text-indigo-600">Entrar</a> </nav> </div> </header> <!-- Conteúdo --> <main class="pt-28 pb-20 max-w-6xl mx-auto px-6"> <!-- Galeria --> <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10"> <img src="https://source.unsplash.com/800x600/?event,party" alt="Espaço principal" class="rounded-lg shadow"> <div class="grid grid-cols-2 gap-4"> <img src="https://source.unsplash.com/400x300/?garden,party" class="rounded-lg shadow" alt=""> <img src="https://source.unsplash.com/400x300/?pool,party" class="rounded-lg shadow" alt=""> <img src="https://source.unsplash.com/400x300/?hall,event" class="rounded-lg shadow" alt=""> <img src="https://source.unsplash.com/400x300/?celebration" class="rounded-lg shadow" alt=""> </div> </div>
+<!-- Informações -->
+<div class="grid md:grid-cols-3 gap-10">
+  <div class="md:col-span-2 space-y-6">
+    <h2 class="text-3xl font-bold">Sítio Recanto das Palmeiras</h2>
+    <p class="text-gray-600">Localizado em <strong>Atibaia, SP</strong>, este espaço é ideal para festas, confraternizações e casamentos ao ar livre. Conta com ampla área verde, piscina, salão coberto e estacionamento.</p>
+
+    <ul class="grid sm:grid-cols-2 gap-2 text-gray-700">
+      <li>🏡 Área total: 2.000 m²</li>
+      <li>👥 Capacidade: até 150 pessoas</li>
+      <li>🚗 Estacionamento gratuito</li>
+      <li>🎶 Permite som ambiente</li>
+    </ul>
+
+    <div>
+      <h3 class="text-xl font-semibold mb-2">Descrição detalhada</h3>
+      <p class="text-gray-600 leading-relaxed">
+        O Recanto das Palmeiras é perfeito para quem busca conforto, espaço e natureza. A locação inclui mesas, cadeiras, freezer e churrasqueira. 
+        Há também uma casa de apoio com 2 quartos e cozinha equipada. 
+        O acesso é fácil e o ambiente é completamente privativo.
+      </p>
+    </div>
+
+    <!-- Localização -->
+    <div>
+      <h3 class="text-xl font-semibold mb-3">Localização</h3>
+      <iframe class="w-full h-64 rounded-lg shadow" 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.926640208431!2d-46.65258828443412!3d-23.57332266878686!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c5f8e3bebb%3A0x963b0851b51f2929!2sSão%20Paulo%2C%20SP!5e0!3m2!1spt-BR!2sbr!4v1619630927998!5m2!1spt-BR!2sbr" 
+        allowfullscreen="" loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <!-- Card de reserva -->
+  <aside class="bg-white rounded-xl shadow p-6 h-fit">
+    <div class="flex justify-between items-center mb-4">
+      <p class="text-2xl font-bold text-indigo-600">R$ 1.200</p>
+      <span class="text-gray-500 text-sm">por dia</span>
+    </div>
+    <form class="space-y-4">
+      <div>
+        <label class="text-sm font-semibold text-gray-700">Data</label>
+        <input type="date" class="w-full border border-gray-300 rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-indigo-400 outline-none">
+      </div>
+      <div>
+        <label class="text-sm font-semibold text-gray-700">Quantidade de pessoas</label>
+        <input type="number" min="1" max="200" class="w-full border border-gray-300 rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-indigo-400 outline-none">
+      </div>
+      <button type="submit" class="w-full bg-indigo-600 text-white font-semibold py-2 rounded-lg hover:bg-indigo-700 transition">Reservar Espaço</button>
+    </form>
+  </aside>
+</div>
+</main> <!-- Rodapé --> <footer class="bg-gray-900 text-gray-300 text-center py-6"> <p>&copy; 2025 Conffra. Todos os direitos reservados.</p> </footer> </body> </html>
