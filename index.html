@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Conffra — Espaços para eventos</title>
+  <meta name="description" content="Conffra — conectando anfitriões e pessoas que buscam espaços para eventos (quintais, sítios, salões)." />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --brand: #F66B5D;   /* salmão queimado */
+      --bg: #FAF8F6;     /* bege claro */
+      --text: #222222;
+      --muted: #6b6b6b;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+    .btn-brand { background: var(--brand); color: #fff; }
+    .btn-brand:hover { background: #e65d4f; }
+    .fade-in { opacity: 0; transform: translateY(6px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .slide-down { animation: slideDown .18s ease-in-out; }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-8px);} to { opacity:1; transform: translateY(0);} }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="fixed top-0 left-0 w-full bg-white/95 backdrop-blur-sm border-b z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="#home" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-md flex items-center justify-center bg-[var(--brand)] text-white font-bold">C</div>
+        <span class="text-lg font-semibold">Conffra</span>
+      </a>
+
+      <!-- RIGHT MENU -->
+      <nav id="mainMenu" class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#home" class="hover:text-[var(--brand)]">Home</a>
+        <a href="#buscar" class="hover:text-[var(--brand)]">Buscar Espaço</a>
+        <a href="#divulgar" class="hover:text-[var(--brand)]">Divulgar</a>
+        <button id="loginBtn" class="text-sm text-[var(--brand)] font-medium">Entrar</button>
+
+        <!-- Hidden until login -->
+        <a href="#perfil" id="menuPerfil" class="hidden hover:text-[var(--brand)]">Perfil</a>
+        <a href="#painel" id="menuPainel" class="hidden hover:text-[var(--brand)]">Painel</a>
+        <button id="logoutBtn" class="hidden text-sm text-gray-600">Sair</button>
+      </nav>
+
+      <!-- mobile -->
+      <div class="md:hidden flex items-center gap-3">
+        <button id="mobileBtn" class="p-2 rounded-md border border-gray-200" aria-label="Abrir menu">☰</button>
+      </div>
+    </div>
+
+    <!-- MOBILE MENU -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-gray-200 bg-white">
+      <div class="flex flex-col text-center">
+        <a href="#home" class="py-3 hover:bg-gray-50">Home</a>
+        <a href="#buscar" class="py-3 hover:bg-gray-50">Buscar Espaço</a>
+        <a href="#divulgar" class="py-3 hover:bg-gray-50">Divulgar</a>
+        <button id="loginBtnMobile" class="py-3 hover:bg-gray-50 text-[var(--brand)]">Entrar</button>
+        <a href="#perfil" id="menuPerfilMobile" class="py-3 hover:bg-gray-50 hidden">Perfil</a>
+        <a href="#painel" id="menuPainelMobile" class="py-3 hover:bg-gray-50 hidden">Painel</a>
+        <button id="logoutBtnMobile" class="py-3 hover:bg-gray-50 hidden">Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-20">
+
+    <!-- HOME -->
+    <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center px-4">
+      <div class="max-w-4xl">
+        <h1 class="text-4xl md:text-4xl font-extrabold mb-4" style="color:var(--brand)">Encontre o espaço perfeito para seu evento</h1>
+        <p class="text-gray-600 max-w-2xl mx-auto mb-8">Busque, descubra e reserve locais incríveis.</p>
+
+        <!-- Search -->
+        <form id="homeSearch" class="mx-auto w-full max-w-2xl bg-white rounded-full shadow-sm flex items-center overflow-hidden border border-gray-200" role="search" aria-label="Buscar espaços">
+          <input id="home-q" type="text" placeholder="Cidade, bairro ou tipo de espaço (ex: quintal, sítio)" class="flex-1 px-5 py-3 text-[var(--text)]" />
+          <button type="submit" class="btn-brand rounded-full px-6 py-3 font-semibold">Buscar</button>
+        </form>
+
+        <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="#divulgar" class="btn-brand px-6 py-2 rounded-full text-center font-semibold">Divulgar meu espaço</a>
+          <a href="#buscar" class="px-6 py-2 rounded-full border border-gray-200 bg-white hover:shadow-sm">Ver espaços</a>
+        </div>
+      </div>
+
+      <!-- Destaques -->
+      <div class="mt-12 w-full max-w-6xl px-4">
+        <h3 class="text-xl font-semibold mb-4">Destaques</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Card A -->
+          <article class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 fade-in" data-fade>
+            <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1400&auto=format&fit=crop" alt="Sítio" class="w-full h-40 object-cover rounded-lg mb-3">
+            <h4 class="font-semibold">Sítio Recanto Alegre</h4>
+            <p class="text-sm text-[var(--muted)]">Itacaré, BA • 120 pessoas</p>
+            <div class="mt-3 flex items-center justify-between">
+              <div class="font-semibold">R$ 1.200</div>
+              <div class="text-yellow-500">★ 4.9</div>
+            </div>
+          </article>
+
+          <!-- Card B -->
+          <article class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 fade-in" data-fade>
+            <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1400&auto=format&fit=crop" alt="Quintal" class="w-full h-40 object-cover rounded-lg mb-3">
+            <h4 class="font-semibold">Quintal da Dona Marta</h4>
+            <p class="text-sm text-[var(--muted)]">Salvador, BA • 40 pessoas</p>
+            <div class="mt-3 flex items-center justify-between">
+              <div class="font-semibold">R$ 450</div>
+              <div class="text-yellow-500">★ 4.7</div>
+            </div>
+          </article>
+
+          <!-- Card C -->
+          <article class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 fade-in" data-fade>
+            <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1400&auto=format&fit=crop" alt="Salão" class="w-full h-40 object-cover rounded-lg mb-3">
+            <h4 class="font-semibold">Salão Vista Alegre</h4>
+            <p class="text-sm text-[var(--muted)]">Vitória da Conquista, BA • 200 pessoas</p>
+            <div class="mt-3 flex items-center justify-between">
+              <div class="font-semibold">R$ 1.800</div>
+              <div class="text-yellow-500">★ 4.8</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUSCAR -->
+    <section id="buscar" class="py-20 px-4">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold mb-4">Buscar espaços</h2>
+        <p class="text-[var(--muted)] mb-6">Filtre por cidade, capacidade e preço — veja exemplos reais abaixo.</p>
+
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 fade-in" data-fade>
+          <form id="searchForm" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <input id="qCity" type="text" placeholder="Cidade (ex: Salvador)" class="border border-gray-200 rounded-lg px-4 py-2" />
+            <input id="qDate" type="date" class="border border-gray-200 rounded-lg px-4 py-2" />
+            <select id="qCapacity" class="border border-gray-200 rounded-lg px-4 py-2">
+              <option value="">Capacidade</option>
+              <option value="20">1–20</option>
+              <option value="50">21–50</option>
+              <option value="100">51–100</option>
+            </select>
+            <button type="submit" class="btn-brand rounded-lg px-4 py-2">Buscar</button>
+          </form>
+        </div>
+
+        <!-- Results grid -->
+        <div id="results" class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Items populated by JS on load -->
+        </div>
+      </div>
+    </section>
+
+    <!-- DIVULGAR -->
+    <section id="divulgar" class="py-20 px-4 bg-[var(--bg)]">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-bold text-[var(--brand)] mb-3">Divulgue seu espaço</h2>
+        <p class="text-[var(--muted)] mb-6">Cadastre seu local e comece a receber pedidos de reserva. No MVP isso é simulado localmente.</p>
+
+        <form id="announceForm" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-4">
+          <div>
+            <label class="block text-sm font-semibold mb-1">Nome do espaço</label>
+            <input type="text" id="aName" class="w-full border border-gray-200 rounded-lg px-4 py-2" />
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold mb-1">Cidade</label>
+              <input type="text" id="aCity" class="w-full border border-gray-200 rounded-lg px-4 py-2" />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold mb-1">Estado</label>
+              <input type="text" id="aState" class="w-full border border-gray-200 rounded-lg px-4 py-2" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold mb-1">Capacidade (pessoas)</label>
+            <input type="number" id="aCap" min="1" class="w-full border border-gray-200 rounded-lg px-4 py-2" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold mb-1">Valor por dia (R$)</label>
+            <input type="number" id="aPrice" min="0" class="w-full border border-gray-200 rounded-lg px-4 py-2" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold mb-1">Descrição</label>
+            <textarea id="aDesc" rows="4" class="w-full border border-gray-200 rounded-lg px-4 py-2"></textarea>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold mb-1">Fotos (URLs — temporário)</label>
+            <input type="text" id="aImgs" placeholder="cole URLs separadas por vírgula" class="w-full border border-gray-200 rounded-lg px-4 py-2" />
+            <p class="text-xs text-[var(--muted)] mt-1">No MVP usamos URLs de imagens. Em produção, implemente upload para S3/Cloud Storage.</p>
+          </div>
+
+          <div>
+            <button type="submit" class="btn-brand w-full rounded-lg px-4 py-2 font-semibold">Enviar anúncio (simulado)</button>
+          </div>
+        </form>
+
+        <div id="announceResult" class="mt-4 text-sm text-green-600"></div>
+      </div>
+    </section>
+
+    <!-- LOGIN -->
+    <section id="login" class="py-20 px-4">
+      <div class="max-w-md mx-auto">
+        <h2 class="text-3xl font-bold text-[var(--brand)] mb-4 text-center">Entrar na sua conta</h2>
+
+        <form id="loginForm" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-4">
+          <div>
+            <label class="block text-sm font-semibold mb-1">Email</label>
+            <input type="email" id="loginEmail" class="w-full border border-gray-200 rounded-lg px-4 py-2" />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold mb-1">Senha</label>
+            <input type="password" id="loginPass" class="w-full border border-gray-200 rounded-lg px-4 py-2" />
+          </div>
+          <div>
+            <button type="submit" class="btn-brand w-full rounded-lg px-4 py-2 font-semibold">Entrar</button>
+          </div>
+          <p class="text-center text-sm text-[var(--muted)]">Ainda não tem conta? <a href="#divulgar" class="text-[var(--brand)] font-semibold">Cadastre-se</a></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- PERFIL (visível apenas após login) -->
+    <section id="perfil" class="py-20 px-4 bg-[var(--bg)]">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-bold text-[var(--brand)] mb-6 text-center">Meu Perfil</h2>
+
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-4">
+          <div class="flex items-center gap-4">
+            <img id="profileAvatar" src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=300&auto=format&fit=crop" alt="avatar" class="rounded-full border border-gray-200 w-20 h-20 object-cover" />
+            <div>
+              <h3 id="profileName" class="font-semibold">Usuário Exemplo</h3>
+              <p id="profileEmail" class="text-sm text-[var(--muted)]">usuario@exemplo.com</p>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-semibold mb-2">Meus anúncios</h4>
+            <ul id="profileSpaces" class="space-y-2 text-[var(--muted)]">
+              <li>— Nenhum anúncio (exemplo)</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-semibold mb-2">Minhas reservas</h4>
+            <ul id="profileBookings" class="space-y-2 text-[var(--muted)]">
+              <li>— Sem reservas (exemplo)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAINEL DO ANFITRIÃO (visível após login) -->
+    <section id="painel" class="py-20 px-4">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl font-bold text-[var(--brand)] mb-6 text-center">Painel do Anfitrião</h2>
+
+        <div class="grid md:grid-cols-3 gap-6 mb-6">
+          <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-center">
+            <div class="text-sm text-[var(--muted)]">Espaços</div>
+            <div class="text-2xl font-bold mt-2" id="hostSpacesCount">0</div>
+          </div>
+          <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-center">
+            <div class="text-sm text-[var(--muted)]">Reservas</div>
+            <div class="text-2xl font-bold mt-2" id="hostBookingsCount">0</div>
+          </div>
+          <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-center">
+            <div class="text-sm text-[var(--muted)]">Receita estimada</div>
+            <div class="text-2xl font-bold mt-2" id="hostRevenue">R$ 0</div>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+          <h3 class="font-semibold mb-4">Meus espaços</h3>
+          <div id="hostSpacesList" class="grid md:grid-cols-2 gap-4">
+            <!-- preenchido por JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t text-center py-6">
+    <div class="max-w-7xl mx-auto text-sm text-[var(--muted)]">
+      © 2025 Conffra — conectando espaços e eventos.
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Mobile menu toggle
+    const mobileBtn = document.getElementById('mobileBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileBtn?.addEventListener('click', () => {
+      if (mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('slide-down');
+      } else {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+
+    // Elements for menu toggling
+    const loginBtn = document.getElementById('loginBtn');
+    const loginBtnMobile = document.getElementById('loginBtnMobile');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const logoutBtnMobile = document.getElementById('logoutBtnMobile');
+    const menuPerfil = document.getElementById('menuPerfil');
+    const menuPainel = document.getElementById('menuPainel');
+    const menuPerfilMobile = document.getElementById('menuPerfilMobile');
+    const menuPainelMobile = document.getElementById('menuPainelMobile');
+
+    // Mock data
+    const mockSpaces = [
+      { id:1, name:'Sítio Recanto Alegre', city:'Itacaré, BA', price:1200, cap:120, img:'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1400&auto=format&fit=crop' },
+      { id:2, name:'Quintal da Dona Marta', city:'Salvador, BA', price:450, cap:40, img:'https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1400&auto=format&fit=crop' },
+      { id:3, name:'Salão Vista Alegre', city:'Vitória da Conquista, BA', price:1800, cap:200, img:'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1400&auto=format&fit=crop' }
+    ];
+    const hostMock = { id:200, name:'Dona Marta', email:'marta@host.com' };
+
+    // IntersectionObserver for fade-in
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('[data-fade]').forEach(el => {
+      el.classList.add('fade-in');
+      io.observe(el);
+    });
+
+    // Populate results
+    function populateResults(list = mockSpaces) {
+      const container = document.getElementById('results');
+      if (!container) return;
+      container.innerHTML = list.map(s => `
+        <article class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 fade-in" data-fade>
+          <img src="${s.img}" alt="${s.name}" class="w-full h-44 object-cover rounded-lg mb-3">
+          <h4 class="font-semibold">${s.name}</h4>
+          <p class="text-sm text-[var(--muted)]">${s.city} • ${s.cap}p</p>
+          <div class="mt-2 flex items-center justify-between">
+            <div class="font-semibold">R$ ${s.price}</div>
+            <a href="#divulgar" class="text-sm text-[var(--brand)] font-medium">Detalhes</a>
+          </div>
+        </article>
+      `).join('');
+      // re-observe for fade
+      document.querySelectorAll('[data-fade]').forEach(el => io.observe(el));
+    }
+
+    // Announce (mock)
+    document.getElementById('announceForm')?.addEventListener('submit', function(e){
+      e.preventDefault();
+      const name = document.getElementById('aName').value.trim() || 'Novo Espaço';
+      const city = document.getElementById('aCity').value.trim() || 'Cidade, UF';
+      const price = parseFloat(document.getElementById('aPrice').value) || 0;
+      const cap = parseInt(document.getElementById('aCap').value) || 0;
+      const imgs = document.getElementById('aImgs').value.split(',').map(s=>s.trim()).filter(Boolean);
+      const newSpace = { id: mockSpaces.length+1, name, city, price, cap, img: imgs[0] || 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1400&auto=format&fit=crop' };
+      mockSpaces.push(newSpace);
+      document.getElementById('announceResult').textContent = 'Anúncio criado (mock). Confira nos resultados.';
+      populateResults();
+      this.reset();
+      setTimeout(()=> document.getElementById('announceResult').textContent = '', 3000);
+    });
+
+    // Login simulation function
+    function doLoginSimulated(email = 'usuario@demo.com') {
+      // update header menu
+      if (loginBtn) loginBtn.style.display = 'none';
+      if (loginBtnMobile) loginBtnMobile.style.display = 'none';
+      if (menuPerfil) menuPerfil.style.display = 'inline';
+      if (menuPainel) menuPainel.style.display = 'inline';
+      if (menuPerfilMobile) menuPerfilMobile.style.display = 'block';
+      if (menuPainelMobile) menuPainelMobile.style.display = 'block';
+      if (logoutBtn) logoutBtn.style.display = 'inline';
+      if (logoutBtnMobile) logoutBtnMobile.style.display = 'block';
+
+      // populate profile & host panel
+      document.getElementById('profileName').textContent = 'Usuário Demo';
+      document.getElementById('profileEmail').textContent = email;
+      document.getElementById('hostSpacesCount').textContent = mockSpaces.length;
+      document.getElementById('hostBookingsCount').textContent = 2;
+      const rev = mockSpaces.reduce((acc,s)=> acc + (parseFloat(s.price)||0),0);
+      document.getElementById('hostRevenue').textContent = 'R$ ' + rev.toFixed(2);
+      document.getElementById('hostSpacesList').innerHTML = mockSpaces.map(s => `
+        <div class="p-4 border border-gray-100 rounded-lg">
+          <h4 class="font-semibold">${s.name}</h4>
+          <p class="text-sm text-[var(--muted)]">${s.city} • ${s.cap}p</p>
+          <div class="mt-3 flex gap-2">
+            <button class="px-3 py-1 bg-white border border-gray-200 rounded-md text-sm">Editar</button>
+            <button class="px-3 py-1 bg-red-600 text-white rounded-md text-sm">Remover</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Logout simulation
+    function doLogoutSimulated() {
+      if (loginBtn) loginBtn.style.display = 'inline';
+      if (loginBtnMobile) loginBtnMobile.style.display = 'block';
+      if (menuPerfil) menuPerfil.style.display = 'none';
+      if (menuPainel) menuPainel.style.display = 'none';
+      if (menuPerfilMobile) menuPerfilMobile.style.display = 'none';
+      if (menuPainelMobile) menuPainelMobile.style.display = 'none';
+      if (logoutBtn) logoutBtn.style.display = 'none';
+      if (logoutBtnMobile) logoutBtnMobile.style.display = 'none';
+      // reset profile and panel (optional)
+      document.getElementById('profileName').textContent = 'Usuário Exemplo';
+      document.getElementById('profileEmail').textContent = 'usuario@exemplo.com';
+      document.getElementById('hostSpacesCount').textContent = 0;
+      document.getElementById('hostBookingsCount').textContent = 0;
+      document.getElementById('hostRevenue').textContent = 'R$ 0';
+      document.getElementById('hostSpacesList').innerHTML = '<div class="p-4 border border-gray-100 rounded-lg text-[var(--muted)]">Nenhum espaço (exemplo)</div>';
+    }
+
+    // Wire login buttons
+    loginBtn?.addEventListener('click', () => {
+      // instant simulated login
+      doLoginSimulated();
+      // optional: scroll to profile
+      location.hash = '#perfil';
+    });
+    loginBtnMobile?.addEventListener('click', () => {
+      doLoginSimulated();
+      mobileMenu.classList.add('hidden');
+      location.hash = '#perfil';
+    });
+
+    logoutBtn?.addEventListener('click', () => {
+      doLogoutSimulated();
+    });
+    logoutBtnMobile?.addEventListener('click', () => {
+      doLogoutSimulated();
+      mobileMenu.classList.add('hidden');
+    });
+
+    // Login form simulated submit
+    document.getElementById('loginForm')?.addEventListener('submit', function(e){
+      e.preventDefault();
+      const email = (document.getElementById('loginEmail').value || '').trim() || 'usuario@demo.com';
+      doLoginSimulated(email);
+      alert('Login simulado realizado');
+      location.hash = '#perfil';
+    });
+
+    // Search handlers
+    document.getElementById('searchForm')?.addEventListener('submit', function(e){
+      e.preventDefault();
+      const city = (document.getElementById('qCity').value || '').toLowerCase();
+      const cap = parseInt(document.getElementById('qCapacity').value) || 0;
+      const filtered = mockSpaces.filter(s => (city ? s.city.toLowerCase().includes(city) : true) && (cap ? s.cap >= cap : true));
+      populateResults(filtered);
+    });
+
+    // Home search redirect
+    document.getElementById('homeSearch')?.addEventListener('submit', function(e){
+      e.preventDefault();
+      const q = document.getElementById('home-q').value.trim();
+      if (q) {
+        document.getElementById('qCity').value = q;
+        document.getElementById('searchForm').dispatchEvent(new Event('submit', {cancelable:true}));
+      } else {
+        populateResults();
+      }
+      location.hash = '#buscar';
+    });
+
+    // On load: populate and ensure menu state (logged-out by default)
+    window.addEventListener('load', () => {
+      populateResults();
+      // default menu state
+      doLogoutSimulated();
+      // set example host list empty
+      document.getElementById('hostSpacesList').innerHTML = '<div class="p-4 border border-gray-100 rounded-lg text-[var(--muted)]">Nenhum espaço (exemplo)</div>';
+    });
+  </script>
+
+</body>
+</html>
